@@ -2,8 +2,6 @@
 
 ---
 
-[![Documentation Status](https://readthedocs.org/projects/chanlun-pro/badge/?version=latest)](https://chanlun-pro.readthedocs.io/zh_CN/latest/?badge=latest)
-
 基于缠论的市场行情分析工具
 
 
