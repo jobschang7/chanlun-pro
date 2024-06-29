@@ -12,16 +12,19 @@ exchange = ExchangeDB("currency")
 line_exchange = ExchangeBinance()
 
 # 创建表
-stocks = line_exchange.all_stocks()
-codes = [s["code"] for s in stocks]
+#stocks = line_exchange.all_stocks()
+#codes = [s["code"] for s in stocks]
 # codes = ['BTC/USDT']
-# codes = [
-#     'BTC/USDT', 'ETH/USDT', 'ETC/USDT', 'GMT/USDT', 'SOL/USDT', 'BNB/USDT', 'AVAX/USDT', 'OP/USDT', 'TRB/USDT',
-#     'FIL/USDT', 'NEAR/USDT', 'LINK/USDT', 'MATIC/USDT', 'DOGE/USDT', 'ADA/USDT', 'APE/USDT', 'DOT/USDT',
-#     '1000SHIB/USDT', 'ZEC/USDT', 'REN/USDT', 'FLOW/USDT', 'SAND/USDT', 'ROSE/USDT', 'XRP/USDT', 'RSR/USDT',
-#     'CRV/USDT', 'FTM/USDT', 'ATOM/USDT', 'MANA/USDT', 'GALA/USDT', 'UNFI/USDT', 'DYDX/USDT', 'WAVES/USDT',
-#     'LTC/USDT', 'AXS/USDT', 'THETA/USDT', 'EOS/USDT', 'BCH/USDT', 'GRT/USDT', 'RUNE/USDT'
-# ]
+codes = ['ROSE/USDT', 'AAVE/USDT', 'FLOW/USDT', 'XMR/USDT', '1INCH/USDT', 'KLAY/USDT', 
+         'XLM/USDT', 'EOS/USDT', 'MANTA/USDT', 'LINK/USDT', 'PYTH/USDT', 'ALT/USDT', 'ZRX/USDT', 
+         'FTM/USDT', 'BAND/USDT', 'RNDR/USDT', 'LPT/USDT', 'SSV/USDT', '1000SHIB/USDT', 
+         'DOGE/USDT', 'MEME/USDT', 'AI/USDT', 'NEAR/USDT', 'AR/USDT', 'WLD/USDT', 'GMT/USDT', 
+         'GALA/USDT', 'IMX/USDT', 'SAND/USDT', 'AXS/USDT', 'XAI/USDT', 'BIGTIME/USDT', 'STRK/USDT', 
+         'OP/USDT', 'ARB/USDT', 'MATIC/USDT', 'CELO/USDT', 'LRC/USDT', 'UNI/USDT', 'ENA/USDT', 'KAVA/USDT', 
+         'SSV/USDT', 'SUI/USDT', 'APT/USDT', 'SEI/USDT', 'DOT/USDT', 'BCH/USDT', 'TNSR/USDT', 'NFP/USDT', 
+         'W/USDT', 'JUP/USDT', 'STX/USDT', 'CAKE/USDT', 'ICP/USDT', 'IOTX/USDT', 'GRT/USDT', 'FIL/USDT', 
+         'UMA/USDT', 'SUSHI/USDT', 'LTC/USDT', '1000LUNC/USDT', '1000XEC/USDT']
+
 sync_frequencys = ["w", "d", "4h", "60m", "30m", "15m", "10m", "5m", "1m"]
 
 # TODO 同步各个周期的起始时间

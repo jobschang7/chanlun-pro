@@ -49,13 +49,13 @@ def config_get_feishu_keys(market):
         db_fs_key is not None
         and db_fs_key["app_id"] != ""
         and db_fs_key["app_secret"] != ""
-        and db_fs_key["user_id"] != ""
+        and db_fs_key["chat_id"] != ""
     ):
         return db_fs_key
     keys = config.FEISHU_KEYS["default"]
     if market in config.FEISHU_KEYS.keys():
         keys = config.FEISHU_KEYS[market]
-    keys["user_id"] = config.FEISHU_KEYS["user_id"]
+    keys["chat_id"] = config.FEISHU_KEYS["chat_id"]
     return keys
 
 
@@ -113,7 +113,7 @@ def send_fs_msg(market, title, contents: Union[str, list]):
         fs_key is None
         or fs_key["app_id"] == ""
         or fs_key["app_secret"] == ""
-        or fs_key["user_id"] == ""
+        or fs_key["chat_id"] == ""
     ):
         return True
     # 创建client
@@ -153,10 +153,10 @@ def send_fs_msg(market, title, contents: Union[str, list]):
     # 构造请求对象
     request: CreateMessageRequest = (
         CreateMessageRequest.builder()
-        .receive_id_type("user_id")
+        .receive_id_type("chat_id")
         .request_body(
             CreateMessageRequestBody.builder()
-            .receive_id(fs_key["user_id"])
+            .receive_id(fs_key["chat_id"])
             .msg_type("post")
             .content(msg_content)
             .build()
@@ -175,4 +175,4 @@ def send_fs_msg(market, title, contents: Union[str, list]):
 
 
 if __name__ == "__main__":
-    send_fs_msg("us", "这里是选股的测试消息", ["运行完成", "选出300只股票", "用时1000小时"])
+    send_fs_msg("currency", "这里是测试消息", ["运行完成", "选出300", "用时1000小时"])

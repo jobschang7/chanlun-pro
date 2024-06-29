@@ -6,16 +6,6 @@
 
 基于缠论的市场行情分析工具
 
-[Github 地址](https://github.com/yijixiuxin/chanlun-pro)
-
-[Gitee 地址](https://gitee.com/wang-student/chanlun-pro)
-
-[在线文档](https://chanlun-pro.readthedocs.io/)
-
-[B站视频教程](https://space.bilibili.com/384267873/video)
-
-[更新日志](https://chanlun-pro.readthedocs.io/UPDATE/)
-
 
 * 缠论图表展示(沪深股市、港股、美股、期货、数字货币)
 * 行情数据下载（沪深股市、港股、美股、期货、数字货币）
@@ -44,42 +34,5 @@
 
 在进行策略回测的时候，采用以上的增量计算，可以大大缩减计算时间，从而提升回测的效率。
 
-### 感兴趣可加微信进行了解
-
-**加好友可免费获取20天使用授权**
-
-> 请先阅读安装文档，确保自己能够正常安装后，在添加微信好友；
->
-> 扫码添加作者微信，备注 ：“chanlun-pro 试用”
-
-![微信](cookbook/docs/img/wx.jpg)
-
-QQ 群
-
-![QQ](cookbook/docs/img/qq.png)
-
-### 实际运行效果展示
-
-![股票行情页面](cookbook/docs/img/stock.png)
-
-* 支持切换深色与浅色主题
-* 支持切换单图或双图模式
-
-**通过掘金量化进行回测**
-
-![掘金量化回测](cookbook/docs/img/my_quant_backtest.png)
-
-**通过 Jupyterlab 进行策略回测，图表展示回测结果；并展示回测标的历史行情，并标注买卖订单，从而进行策略优化**
-
-![策略回测结果查看](cookbook/docs/img/back_test_1.png)
-
-**项目的回测没有资金与仓位管理，每次下单固定金额10W，主要用于测试策略信号的胜率与盈亏比**
-
-![策略回测结果查看](cookbook/docs/img/back_test_2.png)
-![策略回测结果查看](cookbook/docs/img/back_test_3.png)
-![策略回测结果查看](cookbook/docs/img/back_test_4.png)
-![策略回测结果查看](cookbook/docs/img/back_test_5.png)
-
-![监控任务管理](cookbook/docs/img/check.png)
 
 
