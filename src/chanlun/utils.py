@@ -171,7 +171,7 @@ def send_fs_msg(market, title, contents: Union[str, list]):
     return True
 
 
-def send_https_msg(market, title, contents: Union[str, list]):
+def send_http_msg(market, title, contents: Union[str, list]):
     msg_contents = ''
     if  isinstance(contents, str):
         msg_contents = contents
@@ -186,7 +186,7 @@ def send_https_msg(market, title, contents: Union[str, list]):
 if __name__ == "__main__":
     # 示例发送Telegram消息
     async def main():
-        await send_telegram_message('currency', 'test',['test msg', 'test msg1'])
-        # await send_https_msg('test msg')
+        # await send_telegram_message('currency', 'test',['test msg', 'test msg1'])
+        send_http_msg('currency', 'currency', 'test msg')
     import asyncio
     asyncio.run(main())

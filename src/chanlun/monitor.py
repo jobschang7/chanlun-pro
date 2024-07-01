@@ -18,7 +18,7 @@ from chanlun import kcharts
 from chanlun.cl_interface import ICL
 from chanlun.cl_utils import web_batch_get_cl_datas, bi_td
 from chanlun.exchange import get_exchange, Market
-from chanlun.utils import send_fs_msg, send_telegram_message, send_https_msg
+from chanlun.utils import send_fs_msg, send_telegram_message, send_http_msg
 from chanlun import config
 from chanlun.db import db
 import traceback
@@ -196,9 +196,8 @@ def monitoring_code(
     #             send_msgs.append(image_key)
     # 发送消息
     if len(send_msgs) > 0:
-        # send_fs_msg(market, f"{task_name} 监控提醒", send_msgs)
-        # send_https_msg((market, f"{task_name} 监控提醒", send_msgs)  # 发送http
         asyncio.run(send_telegram_message(market, f"{task_name} 监控提醒", send_msgs))
+        # send_http_msg(market, f"{task_name} 监控提醒", send_msgs)  # 发送http
 
     return jh_msgs
 
