@@ -122,6 +122,6 @@ class AlertTasks(object):
 if __name__ == "__main__":
     at = AlertTasks(None)
 
-    ls = at.task_list("a")
+    ls = at.task_list("currency")
 
     print(ls)

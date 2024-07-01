@@ -13,11 +13,16 @@ def query_task_config(task_name) -> Union[None, dict]:
     """
     now_time = int(time.time())
     config = rd.task_config_query(task_name, True)
+    if config['is_run'] is False:
+        config['is_run'] =True
+        config['is_send_msg'] = True
+        config['frequencys'] = {'1w': 'w', '1d': 'd', '30m': '30m' ,'5m': '5m'}
+    print(config)    
     if config["is_run"] is False:
         return None
 
-    if now_time % (config["interval_minutes"] * 60) != 0:
-        return None
+    # if now_time % (config["interval_minutes"] * 60) != 0:
+    #     return None
 
     if len(config["frequencys"]) == 0:
         return None
@@ -244,6 +249,7 @@ def task_currency():
     数字货币行情监控任务
     """
     config = query_task_config("currency")
+    print(config)
     if config is None:
         return True
 
@@ -276,3 +282,7 @@ def task_currency():
             print(f"currency 任务 {stock} 执行异常：", e)
 
     return True
+
+
+if __name__ == "__main__":
+    task_currency()

@@ -77,4 +77,4 @@ def task_config_save(task_name, task_config: dict):
 
 
 if __name__ == "__main__":
-    pass
+    config = task_config_query("currency", True)

@@ -7,13 +7,29 @@ import urllib.parse
 import requests
 
 import json
-import lark_oapi as lark
-from lark_oapi.api.im.v1 import *
-
+from telegram import Bot
 from chanlun.cl_interface import *
 from chanlun.db import db
 from chanlun import config
 
+
+async def send_telegram_message(market, title, contents: Union[str, list]):
+    """发送Telegram消息"""
+    # 创建Telegram Bot实例
+    bot = Bot(token=config.TELEGRAM_BOT_TOKEN)
+    msg_contents = ''
+    if  isinstance(contents, str):
+        msg_contents = contents
+    else:
+        for c in contents:
+            msg_contents += c
+    await bot.send_message(chat_id=config.TELEGRAM_CHAT_ID, text=title + msg_contents)
+
+async def send_telegram_photo(photo_path: str, caption: str = ''):
+    """发送Telegram照片"""
+    bot = Bot(token=config.TELEGRAM_BOT_TOKEN)
+    with open(photo_path, 'rb') as photo:
+        await bot.send_photo(chat_id=config.TELEGRAM_CHAT_ID, photo=photo, caption=caption)
 
 def config_get_proxy():
     db_proxy = db.cache_get("req_proxy")
@@ -23,7 +39,6 @@ def config_get_proxy():
         "host": config.PROXY_HOST,
         "port": config.PROXY_PORT,
     }
-
 
 def config_get_dingding_keys(market):
     db_dd_key = db.cache_get("dd_keys")
@@ -42,24 +57,6 @@ def config_get_dingding_keys(market):
 
     return None
 
-
-def config_get_feishu_keys(market):
-    db_fs_key = db.cache_get("fs_keys")
-    if (
-        db_fs_key is not None
-        and db_fs_key["app_id"] != ""
-        and db_fs_key["app_secret"] != ""
-        and db_fs_key["chat_id"] != ""
-    ):
-        return db_fs_key
-    keys = config.FEISHU_KEYS["default"]
-    if market in config.FEISHU_KEYS.keys():
-        keys = config.FEISHU_KEYS[market]
-    keys["chat_id"] = config.FEISHU_KEYS["chat_id"]
-    return keys
-
-
-# 旧版的API接口已经下架，不能新增了，后续使用 飞书的 消息接口
 def send_dd_msg(market: str, msg: Union[str, dict]):
     """
     发送钉钉消息
@@ -103,7 +100,7 @@ def send_dd_msg(market: str, msg: Union[str, dict]):
     # print(res.text)
     return True
 
-
+# 旧版的API接口已经下架，不能新增了，后续使用 飞书的 消息接口
 def send_fs_msg(market, title, contents: Union[str, list]):
     """
     发送飞书消息
@@ -174,5 +171,22 @@ def send_fs_msg(market, title, contents: Union[str, list]):
     return True
 
 
+def send_https_msg(market, title, contents: Union[str, list]):
+    msg_contents = ''
+    if  isinstance(contents, str):
+        msg_contents = contents
+    else:
+        for c in contents:
+            msg_contents += c
+    res = requests.get(f'http://20.243.203.78/?msg={msg_contents}')
+
+    return True
+
+
 if __name__ == "__main__":
-    send_fs_msg("currency", "这里是测试消息", ["运行完成", "选出300", "用时1000小时"])
+    # 示例发送Telegram消息
+    async def main():
+        await send_telegram_message('currency', 'test',['test msg', 'test msg1'])
+        # await send_https_msg('test msg')
+    import asyncio
+    asyncio.run(main())

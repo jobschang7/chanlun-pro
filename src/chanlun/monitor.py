@@ -5,6 +5,7 @@
 import os
 import pathlib
 import time
+import asyncio
 from typing import List
 
 from pyecharts.render import make_snapshot
@@ -17,7 +18,7 @@ from chanlun import kcharts
 from chanlun.cl_interface import ICL
 from chanlun.cl_utils import web_batch_get_cl_datas, bi_td
 from chanlun.exchange import get_exchange, Market
-from chanlun.utils import send_fs_msg
+from chanlun.utils import send_fs_msg, send_telegram_message, send_https_msg
 from chanlun import config
 from chanlun.db import db
 import traceback
@@ -90,6 +91,7 @@ def monitoring_code(
         end_xd = cd.get_xds()[-1] if len(cd.get_xds()) > 0 else None
         # 检查背驰和买卖点
         if end_bi.type in check_types["bi_types"]:
+
             jh_msgs.extend(
                 {
                     "type": f"笔 {end_bi.type} {bc_maps[bc_type]}",
@@ -159,6 +161,7 @@ def monitoring_code(
             or is_exists.bi_is_done != is_done
             or is_exists.bi_is_td != is_td
         ) and is_send_msg:
+
             msg = (
                 f"【{name} - {jh['frequency']}】触发 {jh['type']} ({is_done} - {is_td})"
             )
@@ -185,15 +188,17 @@ def monitoring_code(
             send_msgs.append("概念 : " + "/".join([_["name"] for _ in hygn["GN"]]))
 
     # 添加图片
-    if len(send_msgs) > 0:
-        for cd in cl_datas:
-            title = f"{name} - {cd.get_frequency()}"
-            image_key = kchart_to_png(market, title, cd, cl_config)
-            if image_key != "":
-                send_msgs.append(image_key)
+    # if len(send_msgs) > 0:
+    #     for cd in cl_datas:
+    #         title = f"{name} - {cd.get_frequency()}"
+    #         image_key = kchart_to_png(market, title, cd, cl_config)
+    #         if image_key != "":
+    #             send_msgs.append(image_key)
     # 发送消息
     if len(send_msgs) > 0:
-        send_fs_msg(market, f"{task_name} 监控提醒", send_msgs)
+        # send_fs_msg(market, f"{task_name} 监控提醒", send_msgs)
+        # send_https_msg((market, f"{task_name} 监控提醒", send_msgs)  # 发送http
+        asyncio.run(send_telegram_message(market, f"{task_name} 监控提醒", send_msgs))
 
     return jh_msgs
 
@@ -274,6 +279,5 @@ if __name__ == "__main__":
     cl_config = query_cl_chart_config("a", "SH.000001")
     klines = ex.klines("SH.600519", "d")
     cd = cl.CL("SH.600519", "d", cl_config).process_klines(klines)
-
-    image_key = kchart_to_png("a", "缠论数据", cd, cl_config)
-    print(image_key)
+    # image_key = kchart_to_png("a", "缠论数据", cd, cl_config)
+    # print(image_key)
