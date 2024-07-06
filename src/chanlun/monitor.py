@@ -197,7 +197,7 @@ def monitoring_code(
     # 发送消息
     if len(send_msgs) > 0:
         asyncio.run(send_telegram_message(market, f"{task_name} 监控提醒", send_msgs))
-        # send_http_msg(market, f"{task_name} 监控提醒", send_msgs)  # 发送http
+        send_http_msg(market, f"{task_name} 监控提醒", send_msgs)  # 发送http
 
     return jh_msgs
 

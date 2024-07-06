@@ -178,7 +178,7 @@ def send_http_msg(market, title, contents: Union[str, list]):
     else:
         for c in contents:
             msg_contents += c
-    res = requests.get(f'http://20.243.203.78/?msg={msg_contents}')
+    res = requests.get(f'http://10.2.0.11/?msg={msg_contents}')
 
     return True
 
